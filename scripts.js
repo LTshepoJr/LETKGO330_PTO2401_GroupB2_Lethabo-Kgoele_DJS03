@@ -27,35 +27,83 @@ for (const { author, id, image, title } of matches.slice(0, BOOKS_PER_PAGE)) {
 
 document.querySelector("[data-list-items]").appendChild(starting);
 
-const genreHtml = document.createDocumentFragment();
-const firstGenreElement = document.createElement("option");
-firstGenreElement.value = "any";
-firstGenreElement.innerText = "All Genres";
-genreHtml.appendChild(firstGenreElement);
+// const fragmentCreationHTML = document.createDocumentFragment();
+// const firstElement = document.createElement("option");
 
-for (const [id, name] of Object.entries(genres)) {
-  const element = document.createElement("option");
-  element.value = id;
-  element.innerText = name;
-  genreHtml.appendChild(element);
-}
+// Created a function that when you want to filter the books with author and genre
+const dropDownModelSelector = (
+  fragmentCreationHTML,
+  firstElement,
+  genreOrAuthor,
+  allGenreOrAuthor,
+  dataSearch
+) => {
+  firstElement.value = "any";
+  firstElement.innerText = allGenreOrAuthor;
+  fragmentCreationHTML.appendChild(firstElement);
 
-document.querySelector("[data-search-genres]").appendChild(genreHtml);
+  for (const [id, name] of Object.entries(genreOrAuthor)) {
+    const element = document.createElement("option");
+    element.value = id;
+    element.innerText = name;
+    fragmentCreationHTML.appendChild(element);
+  }
 
-const authorsHtml = document.createDocumentFragment();
-const firstAuthorElement = document.createElement("option");
-firstAuthorElement.value = "any";
-firstAuthorElement.innerText = "All Authors";
-authorsHtml.appendChild(firstAuthorElement);
+  document.querySelector(dataSearch).appendChild(fragmentCreationHTML);
+};
 
-for (const [id, name] of Object.entries(authors)) {
-  const element = document.createElement("option");
-  element.value = id;
-  element.innerText = name;
-  authorsHtml.appendChild(element);
-}
+// Called the function for filtering the genres
+dropDownModelSelector(
+  document.createDocumentFragment(),
+  document.createElement("option"),
+  genres,
+  "All Genres",
+  "[data-search-genres]"
+);
+// Called the function for filtering the authors
+dropDownModelSelector(
+  document.createDocumentFragment(),
+  document.createElement("option"),
+  authors,
+  "All Authors",
+  "[data-search-authors]"
+);
 
-document.querySelector("[data-search-authors]").appendChild(authorsHtml);
+/////////////////////////////////////////////////////////////////////////////////
+
+// const genreHtml = document.createDocumentFragment();
+// const firstGenreElement = document.createElement("option");
+
+// firstGenreElement.value = "any";
+// firstGenreElement.innerText = "All Genres";
+// genreHtml.appendChild(firstGenreElement);
+
+// for (const [id, name] of Object.entries(genres)) {
+//   const element = document.createElement("option");
+//   element.value = id;
+//   element.innerText = name;
+//   genreHtml.appendChild(element);
+// }
+
+// document.querySelector("[data-search-genres]").appendChild(genreHtml);
+
+// const authorsHtml = document.createDocumentFragment();
+// const firstAuthorElement = document.createElement("option");
+
+// firstAuthorElement.value = "any";
+// firstAuthorElement.innerText = "All Authors";
+// authorsHtml.appendChild(firstAuthorElement);
+
+// for (const [id, name] of Object.entries(authors)) {
+//   const element = document.createElement("option");
+//   element.value = id;
+//   element.innerText = name;
+//   authorsHtml.appendChild(element);
+// }
+
+// document.querySelector("[data-search-authors]").appendChild(authorsHtml);
+
+/////////////////////////////////////////////////////////////////////////////////
 
 if (
   window.matchMedia &&
