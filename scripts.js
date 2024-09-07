@@ -88,18 +88,25 @@ dropDownModelSelector(
   "[data-search-authors]"
 );
 
+const lightTheme = () => {
+  document.documentElement.style.setProperty("--color-dark", "10, 10, 20");
+  document.documentElement.style.setProperty("--color-light", "255, 255, 255");
+};
+const darkTheme = () => {
+  document.documentElement.style.setProperty("--color-dark", "255, 255, 255");
+  document.documentElement.style.setProperty("--color-light", "10, 10, 20");
+};
+
 // Set theme light or dark
 if (
   window.matchMedia &&
   window.matchMedia("(prefers-color-scheme: dark)").matches
 ) {
   document.querySelector("[data-settings-theme]").value = "night";
-  document.documentElement.style.setProperty("--color-dark", "255, 255, 255");
-  document.documentElement.style.setProperty("--color-light", "10, 10, 20");
+  darkTheme();
 } else {
   document.querySelector("[data-settings-theme]").value = "day";
-  document.documentElement.style.setProperty("--color-dark", "10, 10, 20");
-  document.documentElement.style.setProperty("--color-light", "255, 255, 255");
+  lightTheme();
 }
 
 elements.dataListButton.innerText = `Show more (${
@@ -143,14 +150,9 @@ elements.dataSettingsForm.addEventListener("submit", (event) => {
   const { theme } = Object.fromEntries(formData);
 
   if (theme === "night") {
-    document.documentElement.style.setProperty("--color-dark", "255, 255, 255");
-    document.documentElement.style.setProperty("--color-light", "10, 10, 20");
+    darkTheme();
   } else {
-    document.documentElement.style.setProperty("--color-dark", "10, 10, 20");
-    document.documentElement.style.setProperty(
-      "--color-light",
-      "255, 255, 255"
-    );
+    lightTheme();
   }
 
   elements.dataSettingsOverlay.open = false;
