@@ -46,6 +46,7 @@ const elements = {
   dataListTitle: document.querySelector("[data-list-title]"),
   dataListSubtitle: document.querySelector("[data-list-subtitle]"),
   dataListDescription: document.querySelector("[data-list-description]"),
+  dataSettingsTheme: document.querySelector("[data-settings-theme]"),
 };
 elements.dataListItems.appendChild(starting);
 
@@ -102,10 +103,10 @@ if (
   window.matchMedia &&
   window.matchMedia("(prefers-color-scheme: dark)").matches
 ) {
-  document.querySelector("[data-settings-theme]").value = "night";
+  elements.dataSettingsTheme.value = "night";
   darkTheme();
 } else {
-  document.querySelector("[data-settings-theme]").value = "day";
+  elements.dataSettingsTheme.value = "day";
   lightTheme();
 }
 
